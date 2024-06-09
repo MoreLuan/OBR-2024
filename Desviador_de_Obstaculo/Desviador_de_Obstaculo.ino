@@ -14,11 +14,11 @@ float getDistance(int trig,int echo){
 }
 
 //Changing the route of the robot to deflect the object
-void MANOBRA(){
+void ObstacleDerailleur(){
   //Turning Right
   analogWrite(5,0);
   analogWrite(6,100);
-  delay(200);
+  delay(100);
 
   //Running 15cm
   analogWrite(3,0);
@@ -37,32 +37,28 @@ void MANOBRA(){
   analogWrite(4,100);
   analogWrite(5,0);
   analogWrite(6,100);
-  delay(200);
+  delay(100);
+
+  //Turning Left
+  analogWrite(3,0);
+  analogWrite(4,100);
+  delay(100);
+  
+  //Running 15cm
+  analogWrite(3,0);
+  analogWrite(4,100);
+  analogWrite(5,0);
+  analogWrite(6,100);
+  delay(50);
 
   //Turning Right
   analogWrite(5,0);
   analogWrite(6,100);
-  delay(200);
+  delay(100);
 }
 
-// Setting arduino ports
-void setup(){
-  // Engine
-    pinMode(3,OUTPUT);
-    pinMode(4,OUTPUT);
-    pinMode(5,OUTPUT);
-    pinMode(6,OUTPUT);
-  // Line Follower Sensor
-    pinMode(8,INPUT);
-    pinMode(9,INPUT);
-}
-
-void loop(){
-  //Verifing if there is an object in front of the robot 
-    if((getDistance(13,12)) < (10)){
-        MANOBRA();
-    }
-  // Verificating if infrareds are working together
+// Verificating if infrareds are working together
+void lineFollower() {
     if((((digitalRead(8)) && (digitalRead(9)))==(1))){
       //Turning each Engine On
         analogWrite(3,0);
@@ -85,5 +81,15 @@ void loop(){
     }else{
         analogWrite(5,0);
         analogWrite(6,0);
+    }  
+}
+
+void loop(){
+  //Verifing if there is an object in front of the robot 
+    if((getDistance(13,12)) < (10)){
+        ObstacleDerailleur();
+        lineFollower();
     }
+  //Line Following
+  lineFollower();
 }
