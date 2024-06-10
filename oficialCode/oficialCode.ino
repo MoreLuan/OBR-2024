@@ -1,60 +1,49 @@
-#define LeftEngine1 3
-#define LeftEngine2 4
-#define RightEngine1 5
-#define RightEngine2 6
-#define LeftDirectionSensor 7
-#define LeftSensor 8
-#define RightSensor 9
-#define RightDirectionSensor 10
 void setup() {
   // Engine
-  pinMode(LeftEngine1, OUTPUT);
-  pinMode(LeftEngine2, OUTPUT);
-  pinMode(RightEngine1, OUTPUT);
-  pinMode(RightEngine2, OUTPUT);
+  pinMode(3, OUTPUT); //Left Engine
+  pinMode(4, OUTPUT); //Left Engine
+  pinMode(5, OUTPUT); //Right Engine
+  pinMode(6, OUTPUT); //Right Engine
   // Line Follower Sensor
-  pinMode(LeftSensor, INPUT);
-  pinMode(RightSensor, INPUT);
-  //Direction Sensor
-  pinMode(LeftDirectionSensor, INPUT);
-  pinMode(RightDirectionSensor, INPUT);
+  pinMode(8, INPUT); //Right
+  pinMode(9, INPUT); //Left
+  // 90 degres curve Sensor
+  pinMode(7, INPUT); //Right
+  pinMode(10, INPUT); //Left
 }
 
 void loop() {
   // Verificating if infrareds are working together
-  if (((digitalRead(LeftDirectionSensor)) < (1) && (digitalRead(RightDirectionSensor)) < (1))) {
-      //Turning each Engine On
-      analogWrite(LeftEngine1, 0);
-      analogWrite(LeftEngine2, 95);
-      analogWrite(RightEngine1, 0);
-      analogWrite(RightEngine2, 75);
-      delay(200);
-    //Align ajust by engine
-    if ((digitalRead(LeftSensor)) < (1)) {
-      analogWrite(LeftEngine1, 0);
-      analogWrite(LeftEngine2, 95);
-    } else {
-      analogWrite(LeftEngine1, 0);
-      analogWrite(LeftEngine2, 0);
-    }
-    if ((digitalRead(RightSensor)) < (1)) {
-      analogWrite(RightEngine1, 0);
-      analogWrite(RightEngine2, 75);
-    } else {
-      analogWrite(RightEngine1, 0);
-      analogWrite(RightEngine2, 0);
-    }
-  } else {
+  if ((((digitalRead(8)) && (digitalRead(9))) == (1))) {
+    //Turning each Engine On
+    analogWrite(3, 0);
+    analogWrite(4, 85);
+    analogWrite(5, 0);
+    analogWrite(6, 75);
+    delay(200);
+  }
   //Direction ajust by engine
-  if ((digitalRead(LeftDirectionSensor)) == (1)) {
-    analogWrite(LeftEngine1, 0);
-    analogWrite(LeftEngine2, 100);
-    delay(500);
+  if ((digitalRead(7)) < (1)) {
+    analogWrite(3, 0);
+    analogWrite(4, 100);
   }
-  if ((digitalRead(RightDirectionSensor)) == (1)) {
-    analogWrite(RightEngine1, 0);
-    analogWrite(RightEngine2, 100);
-    delay(500);
+  if ((digitalRead(10)) < (1)) {
+    analogWrite(5, 0);
+    analogWrite(6, 100);
   }
-}
+  //Align ajust by engine
+  if ((digitalRead(8)) < (1)) {
+    analogWrite(3, 0);
+    analogWrite(4, 85);
+  } else {
+    analogWrite(3, 0);
+    analogWrite(4, 0);
+  }
+  if ((digitalRead(9)) < (1)) {
+    analogWrite(5, 0);
+    analogWrite(6, 75);
+  } else {
+    analogWrite(5, 0);
+    analogWrite(6, 0);
+  }
 }
