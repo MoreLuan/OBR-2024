@@ -10,48 +10,52 @@ void setup() {
   // 90 degres curve Sensor
   pinMode(7, INPUT); //Right
   pinMode(10, INPUT); //Left
-}
-
+} 
 void loop() {
   // Verificating if infrareds are working together
-  if ((((digitalRead(8)) && (digitalRead(9))) == (1))) {
+  if (digitalRead(8) == 0 && digitalRead(9)== 0) {
     //Turning each Engine On
     analogWrite(3, 0);
     analogWrite(4, 85);
     analogWrite(5, 0);
-    analogWrite(6, 75);
-    delay(200);
+    analogWrite(6, 73);
+    delay(100);
   }
   //Direction ajust by engine
-  if ((digitalRead(7)) == (digitalRead(8)) > (1)) {
+  else if (digitalRead(7) == 0 && digitalRead(10) == 1) {
+    delay(200);
     analogWrite(3, 0);
-    analogWrite(4, 0);
-    delay(100);
-    analogWrite(5, 0);
-    analogWrite(6, 100);
-    delay(100);
-  }
-  if ((digitalRead(9)) == (digitalRead(10)) > (1)) {
-    analogWrite(3, 0);
-    analogWrite(4, 100);
-    delay(100);
+    analogWrite(4, 85);
     analogWrite(5, 0);
     analogWrite(6, 0);
-    delay(100);
+    delay(700);
+  }
+  else if (digitalRead(10) == 0 && digitalRead(7) == 1) {
+    delay(200);
+    analogWrite(3, 0);
+    analogWrite(4, 0);
+    analogWrite(5, 0);
+    analogWrite(6, 73);
+    delay(700);
   }
   //Align ajust by engine
-  if ((digitalRead(8)) < (1)) {
+  else if (digitalRead(8) == 0 && digitalRead(9) == 1 && digitalRead(10) == 1 && digitalRead(7) == 1) {
     analogWrite(3, 0);
-    analogWrite(4, 75);
-  } else {
-    analogWrite(3, 0);
-    analogWrite(4, 0);
-  }
-  if ((digitalRead(9)) < (1)) {
-    analogWrite(5, 0);
-    analogWrite(6, 75);
-  } else {
+    analogWrite(4, 85);
     analogWrite(5, 0);
     analogWrite(6, 0);
+  }
+  else if (digitalRead(9) == 0 && digitalRead(8) == 1 && digitalRead(10) == 1 && digitalRead(7) == 1) {
+    analogWrite(3, 0);
+    analogWrite(4, 0);
+    analogWrite(5, 0);
+    analogWrite(6, 73);
+  }
+  else{
+    analogWrite(3, 0);
+    analogWrite(4, 85);
+    analogWrite(5, 0);
+    analogWrite(6, 73);
+    delay(100);
   }
 }
