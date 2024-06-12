@@ -3,7 +3,7 @@
 
 // Function to detect the green color
 int Green(int R, int G, int B) {
-  if ((R < 180 && R > 65 && B < 180 && B > 65 && G > 115) || (B * 10 < G && G > 35)) {
+  if ((R < 180 && R > 65 && B < 180 && B > 65 && G > 107) || (B * 10 < G && G > 35)) {
     return 1;
   } else {
     return 0;
@@ -21,7 +21,7 @@ int Red(int R, int G, int B) {
 
 // Function to detect the silver color
 int Silver(int R, int G, int B) {
-  if (R > 80 && R < 95 && 90 > B && B > 70 && G > 90 && G < 105) {
+  if (R > 90 && R < 109 && 95 > B && B > 70 && G > 100 && G < 113){
     return 1;
   } else {
     return 0;
